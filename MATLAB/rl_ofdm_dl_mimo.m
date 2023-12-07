@@ -91,12 +91,19 @@ else
         %bs_ids = ["RF3E000356","RF3E000546","RF3E000620","RF3E000609"];%,"RF3E000604","RF3E000612","RF3E000640","RF3E000551"];
                     %"RF3E000208","RF3E000636","RF3E000632","RF3E000568","RF3E000558","RF3E000633","RF3E000566","RF3E000635"];
                     %,"RF3E000136","RF3E000213","RF3E000142", ...
-        hub_id = ["FH4B000003"];
+
+        bs_ids = ["RF3E000208", "RF3E000636", "RF3E000632", "RF3E000568",...
+            "RF3E000558", "RF3E000633", "RF3E000566", "RF3E000635"];  % top row O'connor setup 
+
+        % hub_id = ["FH4B000003"];
+        hub_id = ["FH4B000019"];   % O'Connor Lab setup
     else
         bs_ids = ["RF3E000654","RF3E000458","RF3E000463","RF3E000424"];
         hub_id = [];
     end
-    ue_ids = ["RF3E000706"];
+    % ue_ids = ["RF3E000706"];
+    ue_ids = ["RF3E000241", "RF3E000392"];   % O'connor setup
+
     ref_ids= [];
 
     N_BS_NODE               = length(bs_ids);                   % Number of nodes at the BS
@@ -207,7 +214,7 @@ if SIM_MODE
         numGoodFrames = 1;
     end
 
-else
+else     % if not in simulation mode
 
     fprintf('Running: HARDWARE MODE \n');
     fprintf('=============================== \n');
