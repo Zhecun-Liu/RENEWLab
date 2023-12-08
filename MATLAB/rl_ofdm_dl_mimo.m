@@ -59,6 +59,7 @@ else
     %Iris params:
     TX_SCALE                = 1;            % Scale for Tx waveform ([0:1])
     ANT_BS                  = 'AB';         % Options: {A, AB}
+    ANT_BS                  = 'A';         % single RF-chain?
     ANT_UE                  = 'A';          % Currently, only support single antenna UE, i.e., A
     USE_HUB                 = 1;
     TX_FRQ                  = 3.5475e9;
@@ -73,7 +74,7 @@ else
     bs_ids                  = string.empty();
     ue_ids                  = string.empty();
     ue_scheds               = string.empty();
-    TX_ADVANCE              = 400;          % !!!! IMPORTANT: DO NOT MODIFY - POWDER default is 400, RENEW(Rice) default is 235!!!!
+    TX_ADVANCE              = 235;          % !!!! IMPORTANT: DO NOT MODIFY - POWDER default is 400, RENEW(Rice) default is 235!!!!
 
     if USE_HUB
         % Using chains of different size requires some internal
@@ -94,6 +95,7 @@ else
 
         bs_ids = ["RF3E000208", "RF3E000636", "RF3E000632", "RF3E000568",...
             "RF3E000558", "RF3E000633", "RF3E000566", "RF3E000635"];  % top row O'connor setup 
+         bs_ids = ["RF3E000208", "RF3E000636"];  % top row O'connor setup 
 
         % hub_id = ["FH4B000003"];
         hub_id = ["FH4B000019"];   % O'Connor Lab setup
@@ -103,6 +105,7 @@ else
     end
     % ue_ids = ["RF3E000706"];
     ue_ids = ["RF3E000241", "RF3E000392"];   % O'connor setup
+    ue_ids = ["RF3E000392"];
 
     ref_ids= [];
 
@@ -260,7 +263,7 @@ cfo_est_mat = nan(N_BS_ANT, N_UE);
 [H, H_tmp, peaks, cfo_est_mat, err_flag] = channel_estimation_fun(rx_vec_iris_sound, N_BS_ANT, N_UE, N_SC, lts_t, lts_f, preamble_common, FFT_OFFSET, 'sounding', frm_idx, cfo_est_mat);
 if err_flag
     mimo_handle.mimo_close();
-    error();
+    error("err_flag = TRUE");
 end
 
 % Beamweight calculation
@@ -355,7 +358,7 @@ cfo_est_vec = mean(cfo_est_mat,1); % Average across base station antennas, use o
 [H, ~, preamble_pk, ~, err_flag] = channel_estimation_fun(rx_vec_iris_tmp, N_STREAMS, N_UE, N_SC, lts_t, lts_f, preamble_common, FFT_OFFSET, 'dl-bf', frm_idx, cfo_est_vec);
 if err_flag
     mimo_handle.mimo_close();
-    error();
+    error("err_flag TRUE PROCESS DOWNLINK DATA");
 end
 rx_H_est = squeeze(H);
 
