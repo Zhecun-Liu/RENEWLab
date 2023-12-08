@@ -271,7 +271,8 @@ class MIMODriver:
 
         ### Write TDD Schedule ###
         [bs.config_sdr_tdd(tdd_sched=str(bs_sched_b) if i == 0 else str(bs_sched), nsamps=n_samps, prefix_len=nsamps_pad) for i, bs in enumerate(self.bs_obj)]
-        [ue.config_sdr_tdd(is_bs=False, tdd_sched=str(ue_sched[i]), nsamps=n_samps, prefix_len=nsamps_pad) for i, ue in enumerate(self.ue_obj)]
+        # change is_bs to True to let BS radio (which is configured as UE) in sync with BS
+        [ue.config_sdr_tdd(is_bs=True, tdd_sched=str(ue_sched[i]), nsamps=n_samps, prefix_len=nsamps_pad) for i, ue in enumerate(self.ue_obj)]
 
         for i, bs in enumerate(self.bs_obj):
             #bs.burn_data_complex(tx_data_mat[i, :] if n_bs_antenna > 1 else tx_data_mat) # for matlab
@@ -414,7 +415,8 @@ class MIMODriver:
 
         ### Write TDD Schedule ###
         [bs.config_sdr_tdd(tdd_sched=str(bs_sched[i]), nsamps=n_samps, prefix_len=nsamps_pad, dualpilot=dual_pilot) for i, bs in enumerate(self.bs_obj)]
-        [ue.config_sdr_tdd(is_bs=False, tdd_sched=str(ue_sched[i]), nsamps=n_samps, prefix_len=nsamps_pad) for i, ue in enumerate(self.ue_obj)]
+        # change is_bs to True to let BS radio -based UE in sync
+        [ue.config_sdr_tdd(is_bs=True, tdd_sched=str(ue_sched[i]), nsamps=n_samps, prefix_len=nsamps_pad) for i, ue in enumerate(self.ue_obj)]
 
         #savemat("./testtest.mat", {'tx_data_mat': tx_data_mat});
         for i, bs in enumerate(self.bs_obj):
