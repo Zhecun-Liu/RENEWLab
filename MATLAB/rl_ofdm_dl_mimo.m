@@ -62,11 +62,12 @@ else
     ANT_BS                  = 'A';         % single RF-chain?
     ANT_UE                  = 'A';          % Currently, only support single antenna UE, i.e., A
     USE_HUB                 = 1;
-    TX_FRQ                  = 3.5475e9;
+    TX_FRQ                  = 3.6e9;
     RX_FRQ                  = TX_FRQ;
-    TX_GN                   = 95;
-    TX_GN_BF                = 98;           % BS gain during DL BF transmission
-    TX_GN_UE                = [100, 100];
+    TX_GN                   = 81;
+    TX_GN_BF                = 81;           % BS gain during DL BF transmission
+   % TX_GN_UE                = [81, 81];
+     TX_GN_UE               =[81];
     RX_GN                   = 65;
     SMPL_RT                 = 5e6;
     N_FRM                   = 1;            % Not tested with N_FRM > 1
@@ -95,7 +96,7 @@ else
 
         bs_ids = ["RF3E000208", "RF3E000636", "RF3E000632", "RF3E000568",...
             "RF3E000558", "RF3E000633", "RF3E000566", "RF3E000635"];  % top row O'connor setup 
-         bs_ids = ["RF3E000208", "RF3E000636"];  % top row O'connor setup 
+         bs_ids = ["RF3E000208", "RF3E000636", "RF3E000632", "RF3E000568"];  % top row O'connor setup 
 
         % hub_id = ["FH4B000003"];
         hub_id = ["FH4B000019"];   % O'Connor Lab setup
@@ -104,8 +105,9 @@ else
         hub_id = [];
     end
     % ue_ids = ["RF3E000706"];
-    ue_ids = ["RF3E000241", "RF3E000392"];   % O'connor setup
+    % ue_ids = ["RF3E000029", "RF3E000392"];   % O'connor setup
     ue_ids = ["RF3E000392"];
+    %ue_ids = ["RF3E000241"];
 
     ref_ids= [];
 
