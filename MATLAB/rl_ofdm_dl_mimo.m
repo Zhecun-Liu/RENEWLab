@@ -106,8 +106,10 @@ else
     end
     % ue_ids = ["RF3E000706"];
     % ue_ids = ["RF3E000029", "RF3E000392"];   % O'connor setup
-    ue_ids = ["RF3E000392"];
-    %ue_ids = ["RF3E000241"];
+    % ue_ids = ["RF3E000392"];
+    % ue_ids = ["RF3E000241"];
+    ue_ids = ["RF3E000089"];    % the REF; for BS radio -based UE in order to bypass corr-based sync
+    ue_ids = ["RF3E000356"];    % another BS radio
 
     ref_ids= [];
 
