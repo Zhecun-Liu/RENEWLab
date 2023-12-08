@@ -282,7 +282,7 @@ class MIMODriver:
                 bs.burn_data_complex(tx_data_mat[i, :], tx_data_mat[i, :])
 
         [ue.activate_stream_rx() for ue in self.ue_obj]
-        [ue.set_corr() for ue in self.ue_obj]
+        # [ue.set_corr() for ue in self.ue_obj]
 
         rx_data = np.empty((num_frames, n_users, numRxSyms, n_samps), dtype=np.complex64)
         good_frame_id = 0
@@ -430,7 +430,7 @@ class MIMODriver:
                     bs.burn_data_complex(tx_data_mat[i, :], tx_data_mat[i, :]) # for matlab
 
         [ue.activate_stream_rx() for ue in self.ue_obj]
-        [ue.set_corr() for ue in self.ue_obj]
+        # [ue.set_corr() for ue in self.ue_obj]
 
         rx_data = np.empty((num_frames, self.n_users, numRxSyms, n_samps), dtype=np.complex64)
         good_frame_id = 0
