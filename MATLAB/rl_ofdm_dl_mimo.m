@@ -38,7 +38,7 @@ global APPLY_CFO_CORRECTION;
 DEBUG                   = 0;
 WRITE_PNG_FILES         = 0;                % Enable writing plots to PNG
 SIM_MODE                = 0;
-APPLY_CFO_CORRECTION    = 1;
+APPLY_CFO_CORRECTION    = 0;
 
 PILOT_PLOT              = 0;
 CONST_PLOT              = 0;
@@ -66,8 +66,8 @@ else
     RX_FRQ                  = TX_FRQ;
     TX_GN                   = 81;
     TX_GN_BF                = 81;           % BS gain during DL BF transmission
-   % TX_GN_UE                = [81, 81];
-     TX_GN_UE               =[81];
+   TX_GN_UE                = [81, 81];
+     % TX_GN_UE               =[81];
     RX_GN                   = 65;
     SMPL_RT                 = 5e6;
     N_FRM                   = 1;            % Not tested with N_FRM > 1
@@ -108,8 +108,8 @@ else
     % ue_ids = ["RF3E000029", "RF3E000392"];   % O'connor setup
     % ue_ids = ["RF3E000392"];
     % ue_ids = ["RF3E000241"];
-    ue_ids = ["RF3E000089"];    % the REF; for BS radio -based UE in order to bypass corr-based sync
-    % ue_ids = ["RF3E000356"];    % another BS radio
+    ue_ids = ["RF3E000089", "RF3E000356"];    % the REF; for BS radio -based UE in order to bypass corr-based sync
+  %  ue_ids = ["RF3E000356"];    % another BS radio
 
     ref_ids= [];
 

@@ -220,7 +220,7 @@ class MIMODriver:
         return rx_data, good_frame_id, numRxSyms
 
 
-    def txrx_downlink(self, tx_data_mat_re, tx_data_mat_im, num_frames, nsamps_pad=160, max_try=30, python_mode=False):
+    def txrx_downlink(self, tx_data_mat_re, tx_data_mat_im, num_frames, nsamps_pad=160, max_try=5, python_mode=False):
 
         tx_data_mat = tx_data_mat_re + 1j * tx_data_mat_im
 
@@ -288,7 +288,7 @@ class MIMODriver:
         good_frame_id = 0
 
         for frame in range(num_frames):
-            all_triggered = False
+            all_triggered = True
             good_signal = False
             amp = 0
             #if frame > 0:
@@ -322,9 +322,9 @@ class MIMODriver:
                     new_triggers.append(triggers_i - old_triggers_i)
                 print("triggers = {}, Amplitude = {}".format(new_triggers, amp))
                 all_triggered = True
-                for u in range(n_users):
-                    if (new_triggers[u] == 0):
-                        all_triggered = False
+                # for u in range(n_users):
+                #    if (new_triggers[u] == 0):
+                #        all_triggered = False
                 if all_triggered and good_signal:
                     break
 
@@ -345,7 +345,7 @@ class MIMODriver:
         return rx_data, good_frame_id, numRxSyms
 
 
-    def txrx_dl_sound(self, tx_data_mat_re, tx_data_mat_im, num_frames, nsamps_pad=160, max_try=30, python_mode=False):
+    def txrx_dl_sound(self, tx_data_mat_re, tx_data_mat_im, num_frames, nsamps_pad=160, max_try=5, python_mode=False):
         tx_data_mat = tx_data_mat_re + 1j * tx_data_mat_im
 
         ################################
@@ -471,11 +471,11 @@ class MIMODriver:
                 triggers = [ue.sdr_gettriggers() for ue in self.ue_obj]
 
                 all_triggered = True
-                for u in range(self.n_users):
-                    new_triggers[u] = triggers[u] - old_triggers[u]
-                    old_triggers[u] = triggers[u]
-                    if (new_triggers[u] == 0):
-                        all_triggered = False
+                #for u in range(self.n_users):
+                #    new_triggers[u] = triggers[u] - old_triggers[u]
+                #    old_triggers[u] = triggers[u]
+                #    if (new_triggers[u] == 0):
+                #        all_triggered = False
                 print("Try: {}, Total Triggers: {}, New Trigs: {}".format(i,triggers,new_triggers))
                 if all_triggered and good_signal:
                     break;
@@ -639,7 +639,7 @@ def main():
     parser = OptionParser()
     parser.add_option("--hub", type="string", dest="hub", help="serial number of the hub device", default="FH4B000019")
     parser.add_option("--bs-serials", type="string", dest="bs_serials", help="serial numbers of the BS devices", default='RF3E000356') #default='RF3E000146,RF3E000356,RF3E000546')
-    parser.add_option("--ue-serials", type="string", dest="ue_serials", help="serial numbers of the UE devices", default='RF3E000392')
+    parser.add_option("--ue-serials", type="string", dest="ue_serials", help="serial numbers of the UE devices", default='RF3E000089')
     parser.add_option("--rate", type="float", dest="rate", help="Tx sample rate", default=5e6)
     parser.add_option("--freq", type="float", dest="freq", help="Tx freq (Hz). POWDER users must set to 3.6e9", default=3.55e9)
     parser.add_option("--tx-gain", type="float", dest="tx_gain", help="Optional Tx gain (dB)", default=81.0)
