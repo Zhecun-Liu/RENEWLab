@@ -16,7 +16,7 @@
 	"cp_size" : 16,
 	"ofdm_tx_zero_prefix" : 160,
 	"ofdm_tx_zero_postfix" : 160,
-	"beamsweep" : true,
+	"beamsweep" : false,
 	"ue_channel" : "AB",
 	"ue_rx_gain_a" : [65],
 	"ue_tx_gain_a" : [81],
