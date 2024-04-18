@@ -118,7 +118,7 @@ def siggen_app(args, rate, ampl, ant, gain, freq, bbfreq, waveFreq, numSamps, se
     if sigType == "LTE":
         # LTE signal
         for i in range(numSamps):
-            txSignal[i] = np.complex(LTE5_re.lte5i[i]/32768.0, LTE5_im.lte5q[i]/32768.0)
+            txSignal[i] = complex(LTE5_re.lte5i[i]/32768.0, LTE5_im.lte5q[i]/32768.0)
     elif sigType == "LTS":
         # WiFi LTS Signal
         ltsSym, lts_f = generate_training_seq(preamble_type='lts', cp=32, upsample=1)
