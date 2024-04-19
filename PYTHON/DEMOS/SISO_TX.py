@@ -181,7 +181,7 @@ def siggen_app(args, rate, ampl, ant, gain, freq, bbfreq, waveFreq, numSamps, se
         ax1.plot(np.imag(txSignal), label='pilot q')
         ax2 = fig.add_subplot(2, 1, 2)
         ax2.plot(np.abs(txSignal), label='abs(signal)')
-        plt.show(block=False)
+        plt.show(block=False) # without blocking the execution of the running program
 
     # Stop/Close/Cleanup
     signal.signal(signal.SIGINT, signal_handler)

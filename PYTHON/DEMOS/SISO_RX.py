@@ -87,7 +87,7 @@ FIG_LEN = 16384
 Rate = 18e6
 fft_size = 2**12  # 1024
 numBufferSamps = 1000
-rssiPwrBuffer = collections.deque(maxlen=numBufferSamps)
+rssiPwrBuffer = collections.deque(maxlen=numBufferSamps)  # initialize as deque data structure
 timePwrBuffer = collections.deque(maxlen=numBufferSamps)
 freqPwrBuffer = collections.deque(maxlen=numBufferSamps)
 noisPwrBuffer = collections.deque(maxlen=numBufferSamps)
@@ -236,6 +236,7 @@ def rxsamples_app(srl, freq, gain, num_samps, recorder, agc_en, wait_trigger):
 
     # Set params on both channels (both RF chains)
     for ch in [0, 1]:
+        # SOAPY_SDR_RX is a macro defined by soapysdr
         sdr.setBandwidth(SOAPY_SDR_RX, ch, 2.5*Rate)
         sdr.setBandwidth(SOAPY_SDR_TX, ch, 2.5*Rate)
         sdr.setFrequency(SOAPY_SDR_RX, ch, freq)
@@ -262,7 +263,7 @@ def rxsamples_app(srl, freq, gain, num_samps, recorder, agc_en, wait_trigger):
     sdr.writeRegister("RFCORE", 120, 0)
 
     # Setup RX stream
-    rxStream = sdr.setupStream(SOAPY_SDR_RX, SOAPY_SDR_CF32, [0, 1])
+    rxStream = sdr.setupStream(SOAPY_SDR_RX, SOAPY_SDR_CF32, [0, 1]) # macro, 32-bit complex float 
 
     # RSSI read setup
     setUpDigitalRssiMode(sdr)
@@ -279,7 +280,8 @@ def animate(i, num_samps, recorder, agc_en, wait_trigger, info):
     if agc_en:
         if frameCounter == 10:
             print(" *** ENABLE AGC/PKT DETECT *** ")
-            sdr.writeRegister("IRIS30", FPGA_IRIS030_WR_PKT_DET_ENABLE, 1)
+            # symbolic const are defined within macros from Iris Utils
+            sdr.writeRegister("IRIS30", FPGA_IRIS030_WR_PKT_DET_ENABLE, 1) 
             sdr.writeRegister("IRIS30", FPGA_IRIS030_WR_AGC_ENABLE_FLAG, 1)
         if frameCounter == 20:
             print(" *** DONE WITH PREVIOUS FRAME, ASSUME NEW FRAME INCOMING *** ")
