@@ -17,8 +17,8 @@
 	"ofdm_tx_zero_prefix" : 160,
 	"ofdm_tx_zero_postfix" : 160,
 	"beamsweep" : false,
-	"ue_channel" : "AB",
 	/* below ue values not really used for bs-only mode*/
+	"ue_channel" : "AB",
 	"ue_rx_gain_a" : [15],
 	"ue_tx_gain_a" : [15],
 	"ue_rx_gain_b" : [15],
