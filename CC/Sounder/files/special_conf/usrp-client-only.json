@@ -1,11 +1,12 @@
 {
 	"serial_file" : "files/special_conf/usrp_client_only_topology.json",
-	"frequency" : 2.5e9,
-	"ue_channel" : "AB",
-	"ue_rx_gain_a" : 10,
-	"ue_tx_gain_a" : 10,
-	"ue_rx_gain_b" : 10,
-	"ue_tx_gain_b" : 10,
+	"frequency" : 3.545e9,
+	"ue_channel" : "A",
+	/* rx_gain <= 38 e.g., see uhd_fft GUI tx_gain <=31.5 by siggen_gui */
+	"ue_rx_gain_a" : 37,
+	"ue_tx_gain_a" : 30,
+	"ue_rx_gain_b" : 37,
+	"ue_tx_gain_b" : 30,
 	"sample_rate" : 5e6,
 	"fft_size" : 64,
 	"ofdm_symbol_per_slot" : 10,
@@ -13,10 +14,10 @@
 	"ofdm_tx_zero_prefix" : 160,
 	"ofdm_tx_zero_postfix" : 160,
 	"frame_schedule" : [
-	"BGPPGGGGGGGGGGGGGGGGG"
+		"BGPGGGGGGGGGGGGGGGGG"
 	],
 	"tx_advance" : 100,
-	"beamsweep" : true,
+	"beamsweep" : false,
 	"hw_framer" : false,
 	"frame_mode" : "free_running"
 }
