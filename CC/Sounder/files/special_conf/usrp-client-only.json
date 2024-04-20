@@ -3,10 +3,10 @@
 	"frequency" : 3.545e9,
 	"ue_channel" : "A",
 	/* rx_gain <= 38 e.g., see uhd_fft GUI tx_gain <=31.5 by siggen_gui */
-	"ue_rx_gain_a" : 37,
-	"ue_tx_gain_a" : 30,
-	"ue_rx_gain_b" : 37,
-	"ue_tx_gain_b" : 30,
+	"ue_rx_gain_a" : [37],
+	"ue_tx_gain_a" : [30],
+	"ue_rx_gain_b" : [37],
+	"ue_tx_gain_b" : [30],
 	"sample_rate" : 5e6,
 	"fft_size" : 64,
 	"ofdm_symbol_per_slot" : 10,
@@ -14,10 +14,11 @@
 	"ofdm_tx_zero_prefix" : 160,
 	"ofdm_tx_zero_postfix" : 160,
 	"frame_schedule" : [
-			"BGPGGGGGGGGGGGGGGGGG"
+					"BGPGGGGGGGGGGGGGGGGG"
 	],
-	"tx_advance" : 100,
+	"tx_advance" : [100],
 	"beamsweep" : false,
 	"hw_framer" : false,
-	"frame_mode" : "free_running"
+	/*"frame_mode" : "free_running"*/
+	"corr_scale" : [16]
 }
