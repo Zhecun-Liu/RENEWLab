@@ -14,7 +14,7 @@
 	"ofdm_tx_zero_prefix" : 160,
 	"ofdm_tx_zero_postfix" : 160,
 	"frame_schedule" : [
-		"BGPGGGGGGGGGGGGGGGGG"
+			"BGPGGGGGGGGGGGGGGGGG"
 	],
 	"tx_advance" : 100,
 	"beamsweep" : false,

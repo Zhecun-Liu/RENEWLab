@@ -8,7 +8,7 @@
 	"rx_gain_b" : 65,
 	"tx_gain_b" : 80,
 	"frame_schedule" : [
-		"BGPGGGGGGGGGGGGGGGGG"
+			"BGPGGGGGGGGGGGGGGGGG"
 	],
 	"max_frame" : 4000,
 	"ofdm_symbol_per_slot" : 10,
