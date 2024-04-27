@@ -927,7 +927,8 @@ void Receiver::clientSyncTxRx(int tid, int core_id, SampleBuffer* rx_buffer) {
   //-------------------- New sync
   const size_t beacon_detect_window =
       static_cast<size_t>(static_cast<float>(config_->samps_per_slot()) *
-                          kBeaconDetectWindowScaler);
+		          config_->slot_per_frame());
+                          //kBeaconDetectWindowScaler);
   size_t sync_count = 0;
   constexpr size_t kTargetSyncCount = 2;
   assert(config_->samps_per_frame() >= beacon_detect_window);
@@ -1158,6 +1159,14 @@ ssize_t Receiver::clientSyncBeacon(size_t radio_id, size_t sample_window) {
             "clientSyncBeacon - Samples %zu - Window %zu - Check Beacon %ld\n",
             new_samples, sample_window);
 
+        std::stringstream ss;
+	ss << "RXBUFF_VAL=[";
+        for (size_t jj=0; jj<sample_window; ++jj) {
+          auto rxval = syncbuffmem.at(kSyncDetectChannel)[jj];
+          ss << rxval.real() << "+1j*" << rxval.imag() << " ";
+        }
+        ss << "];\n================" << std::endl;
+        std::cout << ss.str();
         sync_index = syncSearch(syncbuffmem.at(kSyncDetectChannel).data(),
                                 sample_window, config_->corr_scale(radio_id));
       } else {
