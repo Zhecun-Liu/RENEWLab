@@ -3,7 +3,7 @@
 # Define the desired RF serial numbers
 # Run within the same file as topology json
 RF_SERIAL_NUMBERS=(
-	    "RF3E000684"
+	        "RF3E000684"
             "RF3E000176"
             "RF3E000132"
             "RF3E000108"
@@ -39,13 +39,14 @@ RF_SERIAL_NUMBERS=(
 
 
 # Path to the JSON file
-JSON_FILE="/scratch/repos/RENEWLab/CC/Sounder/files/topology-honors.json"
+# JSON_FILE="/scratch/repos/RENEWLab/CC/Sounder/files/topology-honors.json"
+JSON_FILE="/Users/zhecun/Desktop/POWDER/RENEWLab/CC/Sounder/files/topology-honors.json"
 
 # Read the content of the JSON file and store it in a variable
 JSON_CONTENT=$(cat "$JSON_FILE")
 
 # Loop through each RF serial number and modify the JSON content
-LAST_RF_NUMBER=$(awk -F '["\[]' '/"BaseStations": \{/{flag=1; next} /"sdr": \[/ && flag{getline; print $2; exit} /}/ && flag{exit}' topology-honors.json)
+LAST_RF_NUMBER=$(awk -F '["[]' '/"BaseStations": \{/{p=1} p && /"sdr": \[/{getline; gsub(/"/,"",$2); print $2; exit}' "$JSON_FILE")
 echo "Value within sdr array: $LAST_RF_NUMBER"
 for RF_NUMBER in "${RF_SERIAL_NUMBERS[@]}"; do
     # Replace the existing RF serial number in the "sdr" array with the current one
