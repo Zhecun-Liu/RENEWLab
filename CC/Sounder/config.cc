@@ -78,7 +78,8 @@ Config::Config(const std::string& jsonfile, const std::string& directory,
             << " Number of BS sdrs in cell 0: " << n_bs_sdrs_.at(0) << "\n"
             << " Client SDRs: " << num_cl_sdrs_ << std::endl;
 
-  static const int kMaxTxGainBS = 81;
+  // static const int kMaxTxGainBS = 81;
+  static const int kMaxTxGainBS = 100;
   // common (BaseStation config overrides these)
   freq_ = tddConf.value("frequency", 2.5e9);
   rate_ = tddConf.value("sample_rate", 5e6);
