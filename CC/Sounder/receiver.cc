@@ -131,7 +131,7 @@ void Receiver::initBuffers() {
   if (config_->cl_sdr_ch() == 2) {
     pilotbuffA_.at(1) = zeros_.at(0);
     pilotbuffB_.at(1) = config_->pilot_ci16().data();
-    pilotbuffB_.at(0) = zeros_.at(1);
+    pilotbuffB_.at(0) = config_->pilot_ci16().data();
   }
 }
 
@@ -737,18 +737,18 @@ void Receiver::clientTxPilots(size_t user_id, long long base_time) {
                      config_->cl_pilot_slots().at(user_id).at(0) * num_samps -
                      config_->tx_advance(user_id);
   int r;
-  r = client_radio_set_->radioTx(user_id, pilotbuffA_.data(), num_samps, flags,
-                                 txTime);
+  //r = client_radio_set_->radioTx(user_id, pilotbuffA_.data(), num_samps, flags,
+  //                               txTime);
 
-  if (r < num_samps) {
-    MLPD_WARN("BAD Write: %d/%d\n", r, num_samps);
-  }
+  //if (r < num_samps) {
+  //  MLPD_WARN("BAD Write: %d/%d\n", r, num_samps);
+  //}
   if (config_->cl_sdr_ch() == 2) {
     txTime = base_time +
-             config_->cl_pilot_slots().at(user_id).at(1) * num_samps -
+             config_->cl_pilot_slots().at(user_id).at(0) * num_samps -
              config_->tx_advance(user_id);
     r = client_radio_set_->radioTx(user_id, pilotbuffB_.data(), num_samps,
-                                   kStreamEndBurst, txTime);
+                                   kStreamContinuous, txTime);
 
     if (r < num_samps) {
       MLPD_WARN("BAD Write: %d/%d\n", r, num_samps);
@@ -925,9 +925,9 @@ void Receiver::clientSyncTxRx(int tid, int core_id, SampleBuffer* rx_buffer) {
   }
 
   //-------------------- New sync
-  const size_t beacon_detect_window =
-      static_cast<size_t>(static_cast<float>(config_->samps_per_slot()) *
-                          kBeaconDetectWindowScaler);
+  const size_t beacon_detect_window = static_cast<size_t>(static_cast<float>(
+      config_->samps_per_frame()));  //(config_->samps_per_slot()) *
+                                     //kBeaconDetectWindowScaler);
   size_t sync_count = 0;
   constexpr size_t kTargetSyncCount = 2;
   assert(config_->samps_per_frame() >= beacon_detect_window);
@@ -1157,9 +1157,19 @@ ssize_t Receiver::clientSyncBeacon(size_t radio_id, size_t sample_window) {
         MLPD_TRACE(
             "clientSyncBeacon - Samples %zu - Window %zu - Check Beacon %ld\n",
             new_samples, sample_window);
-
         sync_index = syncSearch(syncbuffmem.at(kSyncDetectChannel).data(),
                                 sample_window, config_->corr_scale(radio_id));
+        if (sync_index >= 0) {
+          std::stringstream ss;
+          ss << "frame=[";
+          for (size_t i = 0; i < sample_window; i++) {
+            ss << syncbuffmem.at(0).at(i).real() << "+1j*"
+               << syncbuffmem.at(0).at(i).imag() << " ";
+          }
+          ss << "];\n" << std::endl;
+          std::cout << ss.str();
+          //break;
+        }
       } else {
         MLPD_ERROR(
             "clientSyncBeacon [%zu]: BAD SYNC - Rx samples not requested size "
