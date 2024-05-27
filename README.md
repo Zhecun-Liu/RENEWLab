@@ -1,6 +1,6 @@
 # RENEWLab
 
-[![Build Status](https://falcon.ecg.rice.edu:443/buildStatus/icon?job=github_public_renewlab%2Fmaster)](https://falcon.ecg.rice.edu:443/job/github_public_renewlab/job/master/)
+[![Build Status](https://falcon.ecg.rice.edu:443/buildStatus/icon?job=github_public_renewlab%2Fmaster-rahman)](https://falcon.ecg.rice.edu:443/job/github_public_renewlab/job/master-rahman/)
 
 # Contents
  * [Description](#description)
