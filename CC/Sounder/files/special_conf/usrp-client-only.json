@@ -20,5 +20,5 @@
 	"beamsweep" : false,
 	"hw_framer" : false,
 	/*"frame_mode" : "free_running"*/
-	"corr_scale" : [16]
+	"corr_scale" : [64]
 }
