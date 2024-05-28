@@ -556,7 +556,7 @@ std::vector<std::vector<float>> CommsLib::getSequence(size_t type,
     // Define freq-domain STS according to
     // https://standards.ieee.org/standard/802_11a-1999.html
     std::vector<std::complex<float>> sts_freq(
-        Consts::sts_seq, Consts::sts_seq + Consts::kFftSize_80211);
+        Consts::sts_seq, Consts::sts_seq + Consts::kFftSize_80211); // vector initialize from an array (sts_seq)
 
     // Perform ifft with ifft-shift on sts_freq
     std::vector<std::complex<float>> sts_iq =
