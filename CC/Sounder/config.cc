@@ -22,6 +22,8 @@ static size_t kMaxSupportedFFTSize = 2048;
 static size_t kMinSupportedFFTSize = 64;
 static size_t kMaxSupportedCPSize = 128;
 
+//std::cout << "hello!" << std::endl;
+
 Config::Config(const std::string& jsonfile, const std::string& directory,
                const bool bs_only, const bool client_only, const bool calibrate)
     : directory_(directory) {
@@ -552,6 +554,7 @@ void Config::genBsSchedule(BsSchedType type) {
         bs_array_frame.resize(num_cell_bs_radios);
         std::cout << "BS antennas...." << num_cell_bs_antennas << std::endl;
         std::cout << "BS radios......" << num_cell_bs_radios << std::endl;
+//	std::cout << "hello!" << std::endl;
 
         // If downlink pilots enabled
         const size_t beacon_slot = 0;
@@ -725,6 +728,16 @@ void Config::genPilots() {
   std::vector<std::vector<float>> gold_ifft =
       CommsLib::getSequence(CommsLib::GOLD_IFFT);
   auto gold_ifft_ci16 = Utils::float_to_cint16(gold_ifft);
+  size_t numRow = gold_ifft_ci16.size();
+  std::cout << "numRow of goldifftci16: " << numRow <<std::endl;
+  std::stringstream ss;
+  ss << "GOLDIFFTCI16=[";
+  for (int i = 0; i < numRow; i++){
+	auto goldifftci16 = gold_ifft_ci16[i];
+	ss << goldifftci16.real() << "+1j*" << goldifftci16.imag() << "  ";
+  }
+  ss << "];\n================" << std::endl;
+  std::cout << ss.str();
   gold_cf32_.clear();
   for (size_t i = 0; i < seq_len; i++) {
     gold_cf32_.push_back(std::complex<float>(gold_ifft[0][i], gold_ifft[1][i]));
@@ -746,6 +759,7 @@ void Config::genPilots() {
   for (int i = 0; i < goldReps; i++) {
     beacon_ci16_.insert(beacon_ci16_.end(), gold_ifft_ci16.begin(),
                         gold_ifft_ci16.end());
+    //std::cout << "hello!" << std::endl;
   }
 
   beacon_size_ = beacon_ci16_.size();
