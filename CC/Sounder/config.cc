@@ -782,6 +782,14 @@ void Config::genPilots() {
                       post_beacon_zpad.end());
   beacon_ci16_.insert(beacon_ci16_.end(), postfix_zpad.begin(),
                       postfix_zpad.end());
+  std::stringstream sss;
+  sss << "COMPLETE BEACONCI16=[";
+  for (int i=0; i< beacon_ci16_.size(); i++) {
+	  auto beaconci16 = beacon_ci16_[i];
+	  sss << beaconci16.real() << "+1j*" << beaconci16.imag() << " ";
+  }
+  sss << "];\n================" << std::endl;
+  std::cout << sss.str();
 
   neg_beacon_ci16_.resize(beacon_ci16_.size());
   for (size_t i = 0; i < beacon_ci16_.size(); i++) {
